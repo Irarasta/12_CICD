@@ -11,17 +11,27 @@ on:
   
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    
     steps:
      - name: checkout code
        uses: actions/checkout@v4
+       
      - name: set-uo python
        uses: actions/setup-python@v5
        with:
          python-version: '3.10' 
+         
      - name: Install dependencies
        run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Download dependencies
+          
+     - name: Adds default product data to the database.
+       run: |
+          python db.py -a  
+
+     - name: Prints all product data to the console.
+       run: |
+          python db.py -p 
      
